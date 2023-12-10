@@ -1,0 +1,38 @@
+101 System Architecture
+101.1 Determinate and Configure Hardware Settings
+
+lspci - Shows all devices currently connected to the PCI(Peripheral Component Interconnect) bus.
+lsusb - Lists USB devices currently connected to the machine.
+lsmod - Shows all currently loaded modules.
+modprobe - Load and unload kernel modules. (unloading with  -r)
+modinfo - shows a description, the file, the author, the license, identification, dependancies for the given module.
+modinfo -p  - will make modinfo display all available parameters and ignore the other information.
+
+/etc/modprobe.conf - file for made persistant customized parameters of module
+			or include them in the individual files with extention.conf in the directory /etc/modprobe.d
+/etc/modprobe.d/blacklist.conf - block loading of causing problems module.
+
+Information files and device files 
+/proc, /sys, /dev  - pseudo filesystems, only exists when the system is running.
+/proc - files with information regarding running processes and hardware resources.
+/proc/cpuinfo - Lists detailed information about the CPU
+/proc/interrupts - A list of numbers of the interrupts per IO (INPUT/OUTPUT) device for each cpu.
+/proc/ioports  - List currentl registered INPUT/OUTPUT ports regions in use.
+/proc/dma - List the registered DMA(direct memory access) channels in use.
+
+/sys - Files inside the /sys directory have similar roles to those in /proc. However the /sys directory has the specific purpose 
+of storing device information and kernel data related to hardware, while /proc also contains information about various kernel data 
+structures including running processes and configuration.
+
+/dev - Another directory directly related to devices in system is /dev. Every file in /dev is associated with a system device, 
+particulary storage devices for example IDE hard dive when connected to the motherboard s first IDE channel, is represented by the file
+/dev/hda. Every partition in this disk will be identified by /dev/hda1, /dev/hda2.
+
+UDEV - The Udev is responsible for the identification and configuration of device while the system is running(hotplug detect) and
+device alredy presented during powerup(coldplug detect). Udev relies on sysfs, the pseudo filesystem mounted in /sys.
+As new device are detected, udev searches for a matching rule in the predefined rules sored in directory
+/etc/udev/rules.d/
+
+Storage Devices - In Linus storage devices represented as block devices, because data is read to and from these devices in blocks
+of bufferd data with different sizes and positions. Every block device is identified by a file in the /dev directory, with the name
+of the file depending on the device type and its partition.
